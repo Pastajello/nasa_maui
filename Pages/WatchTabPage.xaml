@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:pages="clr-namespace:nasa_maui.Pages"
+          xmlns:vms="clr-namespace:nasa_maui.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+            x:TypeArguments="vms:WatchTabPageViewModel"
+            x:DataType="vms:WatchTabPageViewModel"
+                Padding="0"
+                xmlns:ff="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
+             x:Class="nasa_maui.Pages.WatchTabPage">
+
+
+        <CollectionView ItemsSource="{Binding Sections}"
+                        Grid.Row="1"
+                        >
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vms:VideoList">
+                    <VerticalStackLayout>
+                        <Label Text="{Binding Title}" FontSize="20" FontAttributes="Bold" Margin="8,0"/>
+                        <CollectionView ItemsLayout="HorizontalList" ItemsSource="{Binding Videos }">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="vms:Video">
+                                    <Grid RowDefinitions="200" Margin="10" WidthRequest="300">
+                                        <ff:CachedImage Source="{Binding ThumbnailUrl}" Aspect="AspectFill" 
+                                                        BitmapOptimizations="True"
+                                                        DownsampleToViewSize="True" />
+                                    <Grid VerticalOptions="End" BackgroundColor="#A1000000">
+                                        <Label Text="{Binding Title}" HorizontalOptions="Center" Margin="10" TextColor="White" FontAttributes="Bold" FontSize="16" LineBreakMode="WordWrap"/>
+                                    </Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                   
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+</pages:BasePage>
