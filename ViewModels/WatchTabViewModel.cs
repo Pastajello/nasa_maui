@@ -24,22 +24,22 @@ namespace nasa_maui.ViewModels
         [ObservableProperty]
         public ObservableCollection<VideoList> sections;
 
-        public override async void OnAppearing()
+        public override async void Init(object? navigationParameter)
         {
-            base.OnAppearing();
+            base.Init(navigationParameter);
 
             var web = new HtmlWeb();
-            var doc = web.Load(" https://plus.nasa.gov/");
+            var doc = await web.LoadFromWebAsync(" https://plus.nasa.gov/");
             var mainArticles = doc.DocumentNode.SelectNodes("//main/section/article").ToList();
             var series = doc.DocumentNode.SelectNodes("//main/section/div/article").ToList();
 
             var videoslists = new List<VideoList>();
 
             var liveAndUpcoming = mainArticles.FirstOrDefault();
-
-            //videoslists.Add(GetVideoListFromHtml(liveAndUpcoming));
-
             var nasaSeries = mainArticles.LastOrDefault();
+
+            //TODO load different series 
+            //videoslists.Add(GetVideoListFromHtml(liveAndUpcoming));
             //videoslists.Add(GetVideoListFromHtml(nasaSeries));
 
 
@@ -48,11 +48,8 @@ namespace nasa_maui.ViewModels
                 var list = GetSeriesVideos(section);
                 videoslists.Add(list);
             }
-
-            Device.BeginInvokeOnMainThread(() => {
+            
             Sections = new ObservableCollection<VideoList>(videoslists);
-            });
-            Console.WriteLine(videoslists.Count);
         }
 
         static VideoList GetSeriesVideos(HtmlNode section)
