@@ -1,40 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-          xmlns:pages="clr-namespace:nasa_maui.Pages"
-          xmlns:vms="clr-namespace:nasa_maui.ViewModels"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-            x:TypeArguments="vms:WatchTabPageViewModel"
-            x:DataType="vms:WatchTabPageViewModel"
-                Padding="0"
-                xmlns:ff="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
-             x:Class="nasa_maui.Pages.WatchTabPage">
-
-
-        <CollectionView ItemsSource="{Binding Sections}"
-                        Grid.Row="1"
-                        >
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="vms:VideoList">
-                    <VerticalStackLayout>
-                        <Label Text="{Binding Title}" FontSize="20" FontAttributes="Bold" Margin="8,0"/>
-                        <CollectionView ItemsLayout="HorizontalList" ItemsSource="{Binding Videos }">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="vms:Video">
-                                    <Grid RowDefinitions="200" Margin="10" WidthRequest="300">
-                                        <ff:CachedImage Source="{Binding ThumbnailUrl}" Aspect="AspectFill" 
-                                                        BitmapOptimizations="True"
-                                                        DownsampleToViewSize="True" />
-                                    <Grid VerticalOptions="End" BackgroundColor="#A1000000">
-                                        <Label Text="{Binding Title}" HorizontalOptions="Center" Margin="10" TextColor="White" FontAttributes="Bold" FontSize="16" LineBreakMode="WordWrap"/>
+<pages:BasePage
+    x:Class="nasa_maui.Pages.WatchTabPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ff="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
+    xmlns:pages="clr-namespace:nasa_maui.Pages"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vms="clr-namespace:nasa_maui.ViewModels"
+    x:Name="rootPage"
+    Padding="0"
+    x:DataType="vms:WatchTabPageViewModel"
+    x:TypeArguments="vms:WatchTabPageViewModel">
+    <CollectionView Grid.Row="1" ItemsSource="{Binding Sections}">
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="vms:VideoList">
+                <VerticalStackLayout>
+                    <Label
+                        Margin="8,0"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        Text="{Binding Title}" />
+                    <CollectionView ItemsLayout="HorizontalList" ItemsSource="{Binding Videos}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="{x:Null}">
+                                <Grid
+                                    Margin="10"
+                                    RowDefinitions="200"
+                                    WidthRequest="300">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            x:DataType="{x:Null}"
+                                            Command="{Binding Path=BindingContext.NavigateToVideoCommand, Source={Reference rootPage}}"
+                                            CommandParameter="{Binding .}" />
+                                    </Grid.GestureRecognizers>
+                                    <ff:CachedImage
+                                        Aspect="AspectFill"
+                                        BitmapOptimizations="True"
+                                        DownsampleToViewSize="True"
+                                        Source="{Binding ThumbnailUrl}" />
+                                    <Grid BackgroundColor="#A1000000" VerticalOptions="End">
+                                        <Label
+                                            Margin="10"
+                                            FontAttributes="Bold"
+                                            FontSize="16"
+                                            HorizontalOptions="Center"
+                                            LineBreakMode="WordWrap"
+                                            Text="{Binding Title}"
+                                            TextColor="White" />
                                     </Grid>
-                                    </Grid>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                    </VerticalStackLayout>
-                   
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
 </pages:BasePage>

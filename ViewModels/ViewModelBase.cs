@@ -6,12 +6,22 @@ namespace nasa_maui.ViewModels
 {
     public interface IViewModel
     {
+        bool IsInitilized { get; set; }
+
+        void Init(object? navigationParameter);
         void OnAppearing();
         void OnDisappearing();
     }
     public class ViewModelBase : ObservableObject, IViewModel
     {
         public ViewModelBase() { }
+
+        public bool IsInitilized { get; set; }
+
+        public virtual async void Init(object? navigationParameter)
+        {
+            IsInitilized = true;
+        }
 
         public virtual void OnAppearing()
         {

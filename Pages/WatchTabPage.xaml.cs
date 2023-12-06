@@ -10,6 +10,5 @@ public partial class WatchTabPage : BasePage<WatchTabPageViewModel>
 		InitializeComponent();
 		NavigationPage.SetHasNavigationBar(this,false);
 	}
-
 }
 

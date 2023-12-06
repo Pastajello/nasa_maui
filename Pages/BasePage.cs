@@ -5,19 +5,25 @@ namespace nasa_maui.Pages
 {
     public abstract class BasePage<TViewModel> : ContentPage where TViewModel : IViewModel
     {
+        public object NavigationParameter { get; set; }
         public IViewModel VM => (IViewModel)BindingContext;
-        protected BasePage(object? viewModel = null)
+        protected BasePage()
         {
             BindingContext = (TViewModel)Activator.CreateInstance(typeof(TViewModel));
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
+            if(!VM.IsInitilized)
+            {
+                VM?.Init(NavigationParameter);
+            }
+
             base.OnAppearing();
 
             Debug.WriteLine($"OnAppearing: {Title}");
 
-            VM.OnAppearing();
+            VM?.OnAppearing();
         }
 
         protected override void OnDisappearing()
@@ -26,7 +32,7 @@ namespace nasa_maui.Pages
 
             Debug.WriteLine($"OnDisappearing: {Title}");
 
-            VM.OnDisappearing();
+            VM?.OnDisappearing();
         }
     }
 }

@@ -7,7 +7,7 @@ public partial class MainPage : BasePage<ViewModelBase>
 {
 	int count = 0;
 
-	public MainPage(ViewModelBase vm) :base(vm)
+	public MainPage()
 	{
 		InitializeComponent();
 	}
