@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using HtmlAgilityPack;
 using nasa_maui.Pages;
+using nasa_maui.Services;
 using System.Collections.ObjectModel;
 
 namespace nasa_maui.ViewModels
@@ -23,6 +24,11 @@ namespace nasa_maui.ViewModels
     {
         [ObservableProperty]
         public ObservableCollection<VideoList> sections;
+
+        public WatchTabPageViewModel(INavigationService navigationService) : base(navigationService)
+        {
+                
+        }
 
         public override async Task Initialize(object? navigationParameter)
         {
@@ -88,11 +94,7 @@ namespace nasa_maui.ViewModels
         [RelayCommand]
         public async Task NavigateToVideo(Video video)
         {
-            int i = 5;
-            var navigation = Application.Current.MainPage.Navigation;
-            var page = new MoviePage() ;
-            page.NavigationParameter = video;
-            await navigation.PushAsync(page);
+            await NavigationService.PushAsync<MoviePageViewModel>(parameter: video);
         }
     }
 }

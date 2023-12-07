@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using HtmlAgilityPack;
+using nasa_maui.Services;
 using System.Collections.ObjectModel;
 
 namespace nasa_maui.ViewModels
@@ -11,6 +12,11 @@ namespace nasa_maui.ViewModels
 
         [ObservableProperty]
         public string videoUrl;
+
+        public MoviePageViewModel(INavigationService navigationService) : base(navigationService)
+        {
+        }
+
         public override async Task Initialize(object? navigationParameter)
         {
             base.Initialize(navigationParameter);

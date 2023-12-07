@@ -2,6 +2,7 @@
 using FFImageLoading.Maui;
 using Microsoft.Extensions.Logging;
 using nasa_maui.Pages;
+using nasa_maui.Services;
 using nasa_maui.ViewModels;
 
 namespace nasa_maui;
@@ -20,7 +21,12 @@ public static class MauiProgram
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-			});
+			})
+			.Services.AddSingleton<INavigationService, NavigationService>()
+			.AddTransient<WatchTabPageViewModel>()
+			.AddTransient<MoviePageViewModel>();
+
+
 
 #if DEBUG
 		builder.Logging.AddDebug();

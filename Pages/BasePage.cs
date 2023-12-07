@@ -1,15 +1,20 @@
-﻿using nasa_maui.ViewModels;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using nasa_maui.ViewModels;
 using System.Diagnostics;
 
 namespace nasa_maui.Pages
 {
-    public abstract class BasePage<TViewModel> : ContentPage where TViewModel : IViewModel
+    public abstract class BasePage : ContentPage
     {
         public object NavigationParameter { get; set; }
+    }
+
+    public abstract class BasePage<TViewModel> : BasePage  where TViewModel : IViewModel
+    {
         public IViewModel VM => (IViewModel)BindingContext;
         protected BasePage()
         {
-            BindingContext = (TViewModel)Activator.CreateInstance(typeof(TViewModel));
+            BindingContext = (TViewModel)Ioc.Default.GetService(typeof(TViewModel));
         }
 
         protected override async void OnAppearing()

@@ -8,8 +8,7 @@
     xmlns:vms="clr-namespace:nasa_maui.ViewModels"
     Padding="0"
     x:DataType="vms:MoviePageViewModel"
-    x:TypeArguments="vms:MoviePageViewModel"
-    NavigationPage.HasNavigationBar="False">
+    x:TypeArguments="vms:MoviePageViewModel">
 
     <Grid
         Margin="0"

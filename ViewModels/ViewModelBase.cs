@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using nasa_maui.Services;
 using nasa_maui.ViewModels;
 using System.Diagnostics;
 
@@ -19,10 +20,14 @@ namespace nasa_maui.ViewModels
 
     public abstract partial class ViewModelBase : ObservableObject, IViewModel, IInitializable
     {
-        public ViewModelBase() { }
+        public INavigationService NavigationService { get; set; }
+
+        public ViewModelBase(Services.INavigationService navigationService)
+        {
+            NavigationService = navigationService;
+        }
 
         public bool IsInitilized { get; set; }
-
 
         [ObservableProperty]
         private bool _isLoading;
