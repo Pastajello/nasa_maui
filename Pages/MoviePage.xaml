@@ -17,7 +17,6 @@
         <toolkit:MediaElement
             x:Name="MediaElement"
             Aspect="AspectFit"
-            BackgroundColor="Red"
             HorizontalOptions="FillAndExpand"
             IsVisible="{Binding IsLoading, Converter={toolkit:InvertedBoolConverter}}"
             ShouldAutoPlay="True"
