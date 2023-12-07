@@ -4,21 +4,32 @@ using System.Diagnostics;
 
 namespace nasa_maui.ViewModels
 {
+
+    internal interface IInitializable
+    {
+        void Init(object? navigationParameter);
+    }
+
     public interface IViewModel
     {
         bool IsInitilized { get; set; }
 
-        void Init(object? navigationParameter);
         void OnAppearing();
         void OnDisappearing();
     }
-    public class ViewModelBase : ObservableObject, IViewModel
+    public abstract partial class ViewModelBase : ObservableObject, IViewModel, IInitializable
     {
         public ViewModelBase() { }
 
         public bool IsInitilized { get; set; }
 
-        public virtual async void Init(object? navigationParameter)
+        async void IInitializable.Init(object? navigationParameter)
+        {
+            IsInitilized = true;
+            Initialize(navigationParameter);
+        }
+
+        public virtual async void Initialize(object? navigationParameter)
         {
             IsInitilized = true;
         }
@@ -33,4 +44,6 @@ namespace nasa_maui.ViewModels
             Debug.WriteLine($"VM OnDisappearing");
         }
     }
+
+   
 }

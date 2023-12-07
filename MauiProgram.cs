@@ -25,17 +25,7 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
-        builder.Services.AddTransientWithShellRoute<MainPage,ViewModelBase>();
-        builder.Services.AddTransientWithShellRoute<WatchTabPage, WatchTabPageViewModel>();
-
 
         return builder.Build();
 	}
-
-    static IServiceCollection AddTransientWithShellRoute<TPage, TViewModel>(this IServiceCollection services)
-		where TPage : BasePage<TViewModel>
-		where TViewModel : ViewModelBase
-    {
-        return services.AddTransientWithShellRoute<TPage, TViewModel>(typeof(TPage).Name);
-    }
 }

@@ -11,9 +11,9 @@ namespace nasa_maui.ViewModels
 
         [ObservableProperty]
         public string videoUrl;
-        public override async void Init(object? navigationParameter)
+        public override async void Initialize(object? navigationParameter)
         {
-            base.Init(navigationParameter);
+            base.Initialize(navigationParameter);
 
             Video = navigationParameter as Video;
 

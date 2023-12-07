@@ -24,9 +24,9 @@ namespace nasa_maui.ViewModels
         [ObservableProperty]
         public ObservableCollection<VideoList> sections;
 
-        public override async void Init(object? navigationParameter)
+        public override async void Initialize(object? navigationParameter)
         {
-            base.Init(navigationParameter);
+            base.Initialize(navigationParameter);
 
             var web = new HtmlWeb();
             var doc = await web.LoadFromWebAsync(" https://plus.nasa.gov/");
