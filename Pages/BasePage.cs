@@ -14,7 +14,7 @@ namespace nasa_maui.Pages
 
         protected override async void OnAppearing()
         {
-            if(!VM.IsInitilized && VM is IInitializable initializable)
+            if(VM is IInitializable initializable && !initializable.IsInitilized)
             {
                 initializable.Init(NavigationParameter);
             }

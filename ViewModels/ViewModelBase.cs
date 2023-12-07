@@ -8,30 +8,39 @@ namespace nasa_maui.ViewModels
     internal interface IInitializable
     {
         void Init(object? navigationParameter);
+        bool IsInitilized { get; set; }
     }
 
     public interface IViewModel
     {
-        bool IsInitilized { get; set; }
-
         void OnAppearing();
         void OnDisappearing();
     }
+
     public abstract partial class ViewModelBase : ObservableObject, IViewModel, IInitializable
     {
         public ViewModelBase() { }
 
         public bool IsInitilized { get; set; }
 
-        async void IInitializable.Init(object? navigationParameter)
+
+        [ObservableProperty]
+        private bool _isLoading;
+
+        void IInitializable.Init(object? navigationParameter)
         {
             IsInitilized = true;
-            Initialize(navigationParameter);
+            Task.Run(async()=>
+            {
+                IsLoading = true;
+                await Initialize(navigationParameter);
+                IsLoading = false;
+            }
+                );
         }
 
-        public virtual async void Initialize(object? navigationParameter)
+        public virtual async Task Initialize(object? navigationParameter)
         {
-            IsInitilized = true;
         }
 
         public virtual void OnAppearing()

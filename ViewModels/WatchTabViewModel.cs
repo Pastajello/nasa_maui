@@ -24,7 +24,7 @@ namespace nasa_maui.ViewModels
         [ObservableProperty]
         public ObservableCollection<VideoList> sections;
 
-        public override async void Initialize(object? navigationParameter)
+        public override async Task Initialize(object? navigationParameter)
         {
             base.Initialize(navigationParameter);
 

@@ -8,17 +8,29 @@
     xmlns:vms="clr-namespace:nasa_maui.ViewModels"
     Padding="0"
     x:DataType="vms:MoviePageViewModel"
-    x:TypeArguments="vms:MoviePageViewModel">
+    x:TypeArguments="vms:MoviePageViewModel"
+    NavigationPage.HasNavigationBar="False">
 
     <Grid
         Margin="0"
-        BackgroundColor="Green"
         HorizontalOptions="Fill"
         VerticalOptions="Fill">
         <toolkit:MediaElement
             x:Name="MediaElement"
+            Aspect="AspectFit"
+            BackgroundColor="Red"
+            HorizontalOptions="FillAndExpand"
+            IsVisible="{Binding IsLoading, Converter={toolkit:InvertedBoolConverter}}"
             ShouldAutoPlay="True"
-            Source="{Binding VideoUrl}" />
+            Source="{Binding VideoUrl}"
+            VerticalOptions="FillAndExpand" />
+        <ActivityIndicator
+            HeightRequest="50"
+            HorizontalOptions="Center"
+            IsRunning="True"
+            IsVisible="{Binding IsLoading}"
+            VerticalOptions="Center"
+            WidthRequest="50" />
     </Grid>
 
 </pages:BasePage>
