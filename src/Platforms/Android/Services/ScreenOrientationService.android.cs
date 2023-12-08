@@ -1,6 +1,5 @@
 ﻿using nasa_maui.Interfaces;
 
-
 namespace nasa_maui.Services
 {
     public class ScreenOrientationService : IScreenOrientationService
@@ -12,7 +11,6 @@ namespace nasa_maui.Services
                 ScreenOrientation.Portrait => Android.Content.PM.ScreenOrientation.Portrait,
                 _ => Android.Content.PM.ScreenOrientation.Portrait
             };
-
 
             AndroidX.Core.View.WindowCompat.SetDecorFitsSystemWindows(Platform.CurrentActivity.Window, false);
             var windowInsetsControllerCompat = AndroidX.Core.View.WindowCompat.GetInsetsController(Platform.CurrentActivity.Window, Platform.CurrentActivity.Window.DecorView);
@@ -29,7 +27,6 @@ namespace nasa_maui.Services
             {
                 windowInsetsControllerCompat.Show(types);
             }
-
         }
     }
 }

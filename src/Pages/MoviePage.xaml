@@ -28,7 +28,7 @@
             Padding="10,2,10,10"
             BackgroundColor="#31000000"
             FontAttributes="Bold"
-            FontFamily="FA-Regular"
+            FontFamily="FA-S"
             FontSize="26"
             HorizontalOptions="Start"
             Text="{x:Static fa:IconFont.ArrowLeft}"

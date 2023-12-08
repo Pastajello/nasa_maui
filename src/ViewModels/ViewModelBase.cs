@@ -40,8 +40,7 @@ namespace nasa_maui.ViewModels
                 IsLoading = true;
                 await Initialize(navigationParameter);
                 IsLoading = false;
-            }
-                );
+            });
         }
 
         public virtual async Task Initialize(object? navigationParameter)

@@ -12,7 +12,7 @@ namespace nasa_maui.ViewModels
         public string Title { get; set; }
         public string Url { get; set; }
         public string ThumbnailUrl { get; set; }
-        public string Duration { get; set; }
+        public string TimeInformation { get; internal set; }
     }
 
     public class VideoList
@@ -44,8 +44,9 @@ namespace nasa_maui.ViewModels
             var liveAndUpcoming = mainArticles.FirstOrDefault();
             var nasaSeries = mainArticles.LastOrDefault();
 
+            videoslists.Add(GetLiveSeries(liveAndUpcoming));
+
             //TODO load different series 
-            //videoslists.Add(GetVideoListFromHtml(liveAndUpcoming));
             //videoslists.Add(GetVideoListFromHtml(nasaSeries));
 
 
@@ -58,12 +59,47 @@ namespace nasa_maui.ViewModels
             Sections = new ObservableCollection<VideoList>(videoslists);
         }
 
+        private VideoList GetLiveSeries(HtmlNode? section)
+        {
+            var videoList = new VideoList { Videos = new List<Video>() };
+            var titleNode = section.SelectSingleNode("header/div/h3").InnerText;
+            videoList.Title = titleNode;
+
+            var videoNodes = section.SelectNodes("section/div/div//article");
+            if (videoNodes != null)
+            {
+                foreach (var videoNode in videoNodes)
+                {
+                    var urlNode = videoNode.SelectSingleNode("div/div");
+                    var url = urlNode.SelectSingleNode("div/a").Attributes["href"].Value;
+                    var thumbnail = urlNode.SelectSingleNode("div/a/figure").Attributes.Last().Value.Replace("background-image:url(", "").Replace(");", "");
+                    var descriptionNode = videoNode.SelectSingleNode("div/div/div[2]");
+
+                    var title = descriptionNode.SelectSingleNode("h4/a").InnerText;
+
+                    var startDate = descriptionNode.SelectSingleNode("div/span").InnerText;
+                    var video = new Video
+                    {
+                        // Extract properties from the videoNode here
+                        Title = title,
+                        ThumbnailUrl = thumbnail,
+                        TimeInformation = startDate,
+                        Url = url
+                    };
+
+                    videoList.Videos.Add(video);
+                }
+            }
+
+            return videoList;
+        }
+
+
         static VideoList GetSeriesVideos(HtmlNode section)
         {
             var videoList = new VideoList { Videos = new List<Video>() };
             var titleNode = section.SelectSingleNode("header/h3").InnerText;
             videoList.Title = titleNode;
-            // Example: Iterate through each article tag representing a video
             var videoNodes = section.SelectNodes("section/div/div//article");
             if (videoNodes != null)
             {
@@ -77,10 +113,9 @@ namespace nasa_maui.ViewModels
                     var duration = innerNode.SelectSingleNode("div/p").InnerText;
                     var video = new Video
                     {
-                        // Extract properties from the videoNode here
                         Title = title,
                         ThumbnailUrl = thumbnail,
-                        Duration = duration,
+                        TimeInformation = duration,
                         Url = url
                     };
 

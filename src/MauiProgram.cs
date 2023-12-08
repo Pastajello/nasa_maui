@@ -22,7 +22,7 @@ public static class MauiProgram
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                fonts.AddFont("Font Awesome 6 Free-Solid-900#Font Awesome 6 Free Solid", "FA-S");
+                fonts.AddFont("Font Awesome 6 Free-Solid-900.otf#Font Awesome 6 Free Solid", "FA-S");
             })
 			.Services.AddSingleton<INavigationService, NavigationService>()
 			.AddTransient<WatchTabPageViewModel>()
