@@ -8,13 +8,14 @@ public partial class MoviePage : BasePage<MoviePageViewModel>
 {
 	public MoviePage()
 	{
-		InitializeComponent(); this.Unloaded += MoviePage_Unloaded;
+		InitializeComponent();
+        this.Unloaded += MoviePage_Unloaded;
 	}
 
     private void MoviePage_Unloaded(object? sender, EventArgs e)
     {
         this.Unloaded -= MoviePage_Unloaded;
-        MediaElement.Handler?.DisconnectHandler();
+        //mediaElement.Handler?.DisconnectHandler();
     }
 }
 

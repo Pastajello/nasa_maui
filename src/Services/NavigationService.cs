@@ -24,9 +24,12 @@ namespace nasa_maui.Services
 
         public INavigation Navigation => Application.Current?.MainPage?.Navigation;
 
-        public Task PopAsync()
+        public async Task PopAsync()
         {
-            throw new NotImplementedException();
+            if(Navigation != null)
+            {
+                await Navigation.PopAsync();
+            }
         }
 
         public async Task PushAsync<T>(object parameter = null) where T : ViewModelBase

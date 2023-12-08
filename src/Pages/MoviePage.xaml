@@ -3,25 +3,42 @@
     x:Class="nasa_maui.Pages.MoviePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fa="clr-namespace:nasa_maui.Resources"
     xmlns:pages="clr-namespace:nasa_maui.Pages"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:vms="clr-namespace:nasa_maui.ViewModels"
     Padding="0"
     x:DataType="vms:MoviePageViewModel"
-    x:TypeArguments="vms:MoviePageViewModel">
+    x:TypeArguments="vms:MoviePageViewModel"
+    NavigationPage.HasNavigationBar="False">
 
     <Grid
         Margin="0"
         HorizontalOptions="Fill"
         VerticalOptions="Fill">
         <toolkit:MediaElement
-            x:Name="MediaElement"
+            x:Name="mediaElement"
             Aspect="AspectFit"
             HorizontalOptions="FillAndExpand"
             IsVisible="{Binding IsLoading, Converter={toolkit:InvertedBoolConverter}}"
             ShouldAutoPlay="True"
             Source="{Binding VideoUrl}"
             VerticalOptions="FillAndExpand" />
+        <Label
+            Padding="10,2,10,10"
+            BackgroundColor="#31000000"
+            FontAttributes="Bold"
+            FontFamily="FA-Regular"
+            FontSize="26"
+            HorizontalOptions="Start"
+            Text="{x:Static fa:IconFont.ArrowLeft}"
+            TextColor="White"
+            VerticalOptions="Start"
+            VerticalTextAlignment="Center">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding NavigateBackCommand}" />
+            </Label.GestureRecognizers>
+        </Label>
         <ActivityIndicator
             HeightRequest="50"
             HorizontalOptions="Center"
